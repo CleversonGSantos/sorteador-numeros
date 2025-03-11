@@ -14,16 +14,43 @@ function sortear() {
         } while (true);
     }
 
-    exibirTextoNaTela('resultado', `Números sorteados: ${numerosSorteados.join(', ')}`);
-}
+    alteraElementoTexto('resultado', `Números sorteados: ${numerosSorteados.join(', ')}`, 'texto__paragrafo');
+    alteraEstadoBotao('btn-reiniciar');
+}   
+  
 
 function obterNumeroAleatorio(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-function exibirTextoNaTela(id, texto) {
+function alteraElementoTexto(id, texto, css) {
     let campo = document.getElementById(id);
     campo.innerHTML = texto; // Atualiza o conteúdo do elemento
-    campo.classList.add('texto__paragrafo'); // Garante que a classe seja mantida
+    campo.classList.add(css); // Garante que a classe seja mantida
     responsiveVoice.speak(texto, 'Brazilian Portuguese Female');
+}
+
+function reiniciar() {  
+    alteraElementoTexto('resultado', `Números sorteados:  nenhum até agora`, 'texto__paragrafo');
+    limpar('quantidade');
+    limpar('de');
+    limpar('ate');
+    alteraEstadoBotao('btn-reiniciar');
+}
+
+function limpar(id) {
+    document.getElementById(id).value = '';
+}
+
+function alteraEstadoBotao(id) {
+    let botao = document.getElementById(id);
+    if (botao.classList.contains('container__botao-desabilitado')) {
+        botao.removeAttribute('disabled');
+        botao.classList.add('container__botao');
+        botao.classList.remove('container__botao-desabilitado');
+    } else {
+        botao.setAttribute('disabled', 'true');
+        botao.classList.add('container__botao-desabilitado');
+        botao.classList.remove('container__botao');
+    }
 }
