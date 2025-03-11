@@ -14,9 +14,16 @@ function sortear() {
         } while (true);
     }
 
-    alert(`Números sorteados: ${numerosSorteados.join(', ')}`);
+    exibirTextoNaTela('resultado', `Números sorteados: ${numerosSorteados.join(', ')}`);
 }
 
 function obterNumeroAleatorio(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+function exibirTextoNaTela(id, texto) {
+    let campo = document.getElementById(id);
+    campo.innerHTML = texto; // Atualiza o conteúdo do elemento
+    campo.classList.add('texto__paragrafo'); // Garante que a classe seja mantida
+    responsiveVoice.speak(texto, 'Brazilian Portuguese Female');
 }
